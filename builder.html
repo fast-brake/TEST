@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCs by Ivan - Конструктор</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: #ff0000;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .main-container {
+            margin-top: 80px;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .components-section {
+            flex: 1;
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .preview-section {
+            width: 400px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .component-category {
+            margin-bottom: 2rem;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-header:hover {
+            background: #444;
+        }
+
+        .category-header i {
+            color: #ff0000;
+            font-size: 1.5rem;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .component-card {
+            background: #333;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff0000;
+        }
+
+        .component-image {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .component-info h3 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-price {
+            color: #ff0000;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .preview-header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-list {
+            list-style: none;
+        }
+
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .preview-item-remove {
+            color: #ff0000;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preview-item-remove:hover {
+            transform: scale(1.2);
+        }
+
+        .total-price {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: right;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .save-button {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .reset-button {
+            background: #333;
+            color: #fff;
+            border: 1px solid #ff0000;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .login-prompt {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #333;
+            border-radius: 8px;
+        }
+
+        .login-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #ff0000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 247, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">PCs by Ivan</a>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="prebuilt.html">Готовые сборки</a>
+                <a href="builder.html">Конструктор</a>
+                <a href="contact.html">Контакты</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <section class="components-section">
+            <!-- Категории и карточки будут добавляться динамически -->
+        </section>
+
+        <section class="preview-section">
+            <div class="preview-header">
+                <h2>Ваша сборка</h2>
+            </div>
+            <ul class="preview-list">
+                <!-- Компоненты будут добавляться здесь -->
+            </ul>
+            <div class="total-price">
+                <h3>Итого: <span id="total">0</span> BYN</h3>
+            </div>
+            <div class="action-buttons">
+                <button class="action-button save-button">Сохранить</button>
+                <button class="action-button reset-button">Сбросить</button>
+                <button class="action-button cart-button" id="add-to-cart">Добавить в корзину</button>
+            </div>
+            <div class="login-prompt">
+                <p>Войдите, чтобы сохранить сборку</p>
+                <a href="#" class="login-button">Войти</a>
+            </div>
+        </section>
+    </div>
+
+    <div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:2000; justify-content:center; align-items:center;">
+        <div style="background:#222; color:#fff; border-radius:10px; padding:2rem; min-width:350px; max-width:90vw; max-height:90vh; overflow:auto; position:relative;">
+            <h2>Корзина</h2>
+            <ul id="cart-list" style="list-style:none; padding:0; margin:1rem 0;"></ul>
+            <div style="text-align:right; margin-top:1rem;">
+                <button id="close-cart" style="background:#ff0000; color:#fff; border:none; border-radius:5px; padding:0.5rem 1.5rem; cursor:pointer;">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categoryIcons = {
+            cpu: 'fa-microchip',
+            gpu: 'fa-tv',
+            motherboard: 'fa-motherboard',
+            cooler: 'fa-fan',
+            ram: 'fa-memory',
+            psu: 'fa-plug',
+            case: 'fa-box',
+            monitor: 'fa-desktop',
+            periphery: 'fa-keyboard'
+        };
+        
+        function categoryNameRu(cat) {
+            const map = {
+                cpu: 'Процессоры', gpu: 'Видеокарты', motherboard: 'Материнские платы',
+                cooler: 'Кулеры', ram: 'Оперативная память', psu: 'Блоки питания',
+                case: 'Корпуса', monitor: 'Мониторы', periphery: 'Периферия'
+            };
+            return map[cat] || cat;
+        }
+        
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+        
+        let selected = {};
+        let componentsData = {};
+        
+        function isCompatible(category, item) {
+            if (category === 'motherboard' && selected.cpu && item.socket && selected.cpu.socket && item.socket !== selected.cpu.socket) return false;
+            if (category === 'cpu' && selected.motherboard && item.socket && selected.motherboard.socket && item.socket !== selected.motherboard.socket) return false;
+            // Можно добавить другие проверки (RAM, PSU и т.д.)
+            return true;
+        }
+        
+        function renderComponents() {
+            const section = document.querySelector('.components-section');
+            section.innerHTML = '';
+            for (const [category, items] of Object.entries(componentsData)) {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'component-category';
+                catDiv.innerHTML = `
+                    <div class="category-header">
+                        <i class="fas ${categoryIcons[category] || 'fa-cube'}"></i>
+                        <h2>${categoryNameRu(category)}</h2>
+                    </div>
+                    <div class="component-grid"></div>`;
+                const grid = catDiv.querySelector('.component-grid');
+                items.forEach((item, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'component-card';
+                    card.tabIndex = 0;
+                    card.innerHTML = `
+                        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" class="component-image">
+                        <div class="component-info">
+                            <h3>${escapeHtml(item.name)}</h3>
+                            <p>${escapeHtml(item.description)}</p>
+                            <div class="component-price">${item.price} BYN</div>
+                        </div>
+                    `;
+                    if (selected[category] && selected[category].name === item.name) {
+                        card.style.border = '2px solid #ff0000';
+                    }
+                    if (!isCompatible(category, item)) {
+                        card.style.opacity = 0.5;
+                        card.style.pointerEvents = 'none';
+                    }
+                    card.onclick = () => selectComponent(category, idx);
+                    card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') selectComponent(category, idx); };
+                    grid.appendChild(card);
+                });
+                section.appendChild(catDiv);
+            }
+            renderPreview();
+        }
+        
+        function selectComponent(category, idx) {
+            selected[category] = componentsData[category][idx];
+            renderPreview();
+            showHint('Компонент добавлен в сборку!');
+        }
+        
+        function renderPreview() {
+            const preview = document.querySelector('.preview-list');
+            preview.innerHTML = '';
+            let total = 0;
+            for (const [cat, item] of Object.entries(selected)) {
+                const li = document.createElement('li');
+                li.className = 'preview-item';
+                li.innerHTML = `<span>${escapeHtml(item.name)}</span>
+                                <span>${item.price} BYN</span>
+                                <i class="fas fa-times preview-item-remove" title="Удалить"></i>`;
+                li.querySelector('.preview-item-remove').onclick = () => { delete selected[cat]; renderPreview(); };
+                preview.appendChild(li);
+                total += item.price;
+            }
+            document.getElementById('total').textContent = total;
+        }
+
+        function showHint(msg) {
+            let hint = document.getElementById('hint');
+            if (!hint) {
+                hint = document.createElement('div');
+                hint.id = 'hint';
+                hint.style.position = 'fixed';
+                hint.style.bottom = '30px';
+                hint.style.left = '50%';
+                hint.style.transform = 'translateX(-50%)';
+                hint.style.background = '#ff0000';
+                hint.style.color = '#fff';
+                hint.style.padding = '1em 2em';
+                hint.style.borderRadius = '8px';
+                hint.style.zIndex = 9999;
+                document.body.appendChild(hint);
+            }
+            hint.textContent = msg;
+            hint.style.display = 'block';
+            setTimeout(() => { hint.style.display = 'none'; }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('data/components.json')
+                .then(r => r.json())
+                .then(data => {
+                    componentsData = data;
+                    renderComponents();
+                });
+            document.querySelector('.reset-button').onclick = () => { 
+                selected = {}; 
+                renderPreview(); 
+                renderComponents();
+            };
+        });
+
+        // Корзина
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        function updateCartIcon() {
+            let icon = document.getElementById('cart-icon');
+            if (!icon) {
+                icon = document.createElement('div');
+                icon.id = 'cart-icon';
+                icon.innerHTML = '<i class="fas fa-shopping-cart"></i><span id="cart-count" style="background:#ff0000; color:#fff; border-radius:50%; padding:2px 7px; font-size:12px; position:absolute; top:-8px; right:-8px;">0</span>';
+                icon.style.position = 'fixed';
+                icon.style.top = '25px';
+                icon.style.right = '35px';
+                icon.style.fontSize = '28px';
+                icon.style.cursor = 'pointer';
+                icon.style.zIndex = 2001;
+                document.body.appendChild(icon);
+                icon.onclick = showCart;
+            }
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+        function showCart() {
+            const modal = document.getElementById('cart-modal');
+            const list = document.getElementById('cart-list');
+            list.innerHTML = '';
+            if (cart.length === 0) {
+                list.innerHTML = '<li>Корзина пуста</li>';
+            } else {
+                cart.forEach((build, idx) => {
+                    let li = document.createElement('li');
+                    let total = Object.values(build).reduce((sum, item) => sum + (item?.price||0), 0);
+                    li.style.marginBottom = '1rem';
+                    li.style.borderBottom = '1px solid #444';
+                    li.innerHTML = `<b>Сборка #${idx+1}</b> (Итого: ${total} BYN)<br>` +
+                        Object.values(build).map(item => `<span>${escapeHtml(item.name)} (${item.price} BYN)</span>`).join(', ') +
+                        ` <i class="fas fa-times preview-item-remove" title="Удалить" style="cursor:pointer; color:#ff0000; margin-left:10px;" data-idx="${idx}"></i>`;
+                    list.appendChild(li);
+                });
+            }
+            modal.style.display = 'flex';
+            // Удаление сборки из корзины
+            list.querySelectorAll('.preview-item-remove').forEach(el => {
+                el.onclick = function() {
+                    const idx = +el.getAttribute('data-idx');
+                    cart.splice(idx, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    showCart();
+                    updateCartIcon();
+                };
+            });
+        }
+        document.getElementById('close-cart').onclick = function() {
+            document.getElementById('cart-modal').style.display = 'none';
+        };
+        document.getElementById('add-to-cart').onclick = function() {
+            if (Object.keys(selected).length === 0) {
+                showHint('Сборка пуста!');
+                return;
+            }
+            cart.push(JSON.parse(JSON.stringify(selected)));
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showHint('Сборка добавлена в корзину!');
+            updateCartIcon();
+        };
+        updateCartIcon();
+    </script>
+</body>
+</html> 

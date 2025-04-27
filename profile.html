@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — PCs by Ivan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .header {
+            background: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .nav-links a:hover {
+            color: #ff0000;
+            background-color: rgba(255,255,255,0.1);
+        }
+        .profile-container {
+            margin-top: 100px;
+            max-width: 600px;
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            margin-left: auto;
+            margin-right: auto;
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .profile-header i {
+            font-size: 2.5rem;
+            color: #ff0000;
+        }
+        .profile-header h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .profile-info {
+            margin-bottom: 2rem;
+        }
+        .builds-list {
+            background: #292929;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .builds-list h3 {
+            margin-top: 0;
+        }
+        .build-item {
+            border-bottom: 1px solid #444;
+            padding: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .build-item:last-child {
+            border-bottom: none;
+        }
+        .logout-btn {
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .logout-btn:hover {
+            background: #c20000;
+        }
+        .login-btn {
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-btn:hover {
+            background: #c20000;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">PCs by Ivan</a>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="prebuilt.html">Готовые сборки</a>
+                <a href="builder.html">Конструктор</a>
+                <a href="profile.html">Личный кабинет</a>
+            </div>
+        </nav>
+    </header>
+    <div class="profile-container">
+        <div class="profile-header">
+            <i class="fas fa-user-circle"></i>
+            <h2 id="profile-greeting">Здравствуйте!</h2>
+        </div>
+        <div class="profile-info" id="profile-info">
+            <!-- Здесь будет информация о пользователе -->
+        </div>
+        <div class="builds-list">
+            <h3>Ваши сборки</h3>
+            <div id="builds-list-content">
+                <!-- Список сборок -->
+            </div>
+        </div>
+        <button class="logout-btn" id="logout-btn">Выйти</button>
+    </div>
+    <script>
+        // Простая имитация авторизации
+        let user = JSON.parse(localStorage.getItem('user')) || null;
+        function renderProfile() {
+            const greeting = document.getElementById('profile-greeting');
+            const info = document.getElementById('profile-info');
+            if (user) {
+                greeting.textContent = `Здравствуйте, ${user.name || 'Пользователь'}!`;
+                info.innerHTML = `<b>Email:</b> ${user.email || '—'}`;
+                document.getElementById('logout-btn').style.display = '';
+            } else {
+                greeting.textContent = 'Вы не авторизованы';
+                info.innerHTML = '<button class="login-btn" id="login-btn">Войти</button>';
+                document.getElementById('logout-btn').style.display = 'none';
+                document.getElementById('login-btn').onclick = function() {
+                    // Имитация входа
+                    user = {name: 'Иван', email: 'ivan@example.com'};
+                    localStorage.setItem('user', JSON.stringify(user));
+                    renderProfile();
+                };
+            }
+        }
+        renderProfile();
+        document.getElementById('logout-btn').onclick = function() {
+            localStorage.removeItem('user');
+            user = null;
+            renderProfile();
+        };
+        // Список сборок из localStorage (cart)
+        function renderBuilds() {
+            const builds = JSON.parse(localStorage.getItem('cart')) || [];
+            const list = document.getElementById('builds-list-content');
+            if (builds.length === 0) {
+                list.innerHTML = '<div style="color:#aaa;">У вас нет сохранённых сборок.</div>';
+            } else {
+                list.innerHTML = builds.map((build, idx) => {
+                    let total = Object.values(build).reduce((sum, item) => sum + (item?.price||0), 0);
+                    return `<div class="build-item"><span><b>Сборка #${idx+1}</b> — ${total} BYN</span></div>`;
+                }).join('');
+            }
+        }
+        renderBuilds();
+    </script>
+</body>
+</html> 

@@ -1,0 +1,18 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+www.originpc.com	TRUE	/	FALSE	1999999999	ASP.NET_SessionId	ngogr35fkb5wt35wbfmlnzgi
+www.originpc.com	TRUE	/	FALSE	1999999999	ARRAffinity	7ee8c6c6b6d031cd3e123132082eb4936faef8fb7cebf12ea0c7eeb3f609836e
+www.originpc.com	TRUE	/	FALSE	1999999999	ARRAffinitySameSite	7ee8c6c6b6d031cd3e123132082eb4936faef8fb7cebf12ea0c7eeb3f609836e
+www.originpc.com	TRUE	/	FALSE	1999999999	SameSite	None
+partner.wegetfinancing.com	TRUE	/	FALSE	1999999999	AWSALB	j+mFPXmy+1rIc1F4a7zXh/42s/MGSlYbtP3FxYHqq0NPqKRxe+HB7jako/peOzkiJM1BjhmJDUXYuZ7DkjCOUfHD/oMhG1j1gawf6VJLo9FAEji3yZvwb5xkHvQq
+partner.wegetfinancing.com	TRUE	/	FALSE	1999999999	AWSALBCORS	j+mFPXmy+1rIc1F4a7zXh/42s/MGSlYbtP3FxYHqq0NPqKRxe+HB7jako/peOzkiJM1BjhmJDUXYuZ7DkjCOUfHD/oMhG1j1gawf6VJLo9FAEji3yZvwb5xkHvQq
+partner.wegetfinancing.com	TRUE	/	FALSE	1999999999	SameSite	None
+www.originpc.com	TRUE	/	FALSE	1999999999	__RequestVerificationToken	CEFeIVjYzAPeU6NCXi_UjB0m2-ofPOYkp1muqm_oTVKe5HktcV-LINYQ194DWufLIcFe3DDYFlP-FohjQJH0dGl7UMI1
+www.originpc.com	TRUE	/	FALSE	1999999999	.OPC_NL	Yes
+.vimeo.com	TRUE	/	FALSE	1999999999	__cf_bm	tsBHOI70LD7TNvJfsbr4LrdIuSxSqtIHTS3XzmUHous-1745581305-1.0.1.1-TffnrEDSNqTtwWZQ56ENXELVVTQISWlu5bfbdVsDRVL33kqQlRZZcS3BCRxC2X7x
+.vimeo.com	TRUE	/	FALSE	1999999999	_cfuvid	wyVMCrhvNq1EwxWJJq6P4fMLuudhoG9KtQhC9r5oA6Q-1745581305443-0.0.1.1-604800000
+player.vimeo.com	TRUE	/	FALSE	1999999999	SameSite	None
+www.originpc.com	TRUE	/	FALSE	1999999999	.OPCGDA	uv7pP2zDb2OXF7uUpUkfe6w57J2xIkcRvgvcvhj%2f2dwX0WI9yRySLK7%2beFGkkvJc5y9ANNia4jr7ND0nGe99yafFjYABlGATQ7NSqt6CsbU%3d
+.gleam.io	TRUE	/	FALSE	1999999999	__cf_bm	YM1VN2fKnxA1Vu5xsfNd5jZAECpa0NgnK5RtPQ7qclI-1745583247-1.0.1.1-8BVA6ybjbpzNHdqTDEq.5FFInoH8YngPKfi0XZUhl1d9LLWBQRcSSmAOJXWh7AsrpHbogZ7vEPI0X9k06MaVzzug2FqxDW2r1mQb3Y2aUK8
+js.gleam.io	TRUE	/	FALSE	1999999999	SameSite	None
+
